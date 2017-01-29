@@ -1,16 +1,20 @@
 function loadBookmarkVue() {
-  if ($("#new_bookmark").length) {
+  if ($("#bookmark_form").length) {
     new Vue({
-      el: "#new_bookmark",
+      el: "#bookmark_form",
       data: {
         title: null,
         url: null,
+        image: null,
+        paragraph: null,
         error: null
       },
+
       methods: {
         urlChanged: function() {
           this.loadPage();
         },
+
         loadPage: function() {
           var _this = this;
           $.ajax({
@@ -19,16 +23,17 @@ function loadBookmarkVue() {
             dataType: "json"
           }).done(function(data) {
             _this.title = data.title;
+            _this.image = data.image;
+            _this.paragraph = data.paragraph;
             _this.error = null;
           }).fail(function(data) {
-            _this.error = "Something went wrong.";
+            _this.error = "Something went wrong."
           });
-
         }
       }
     });
-  }  
+  }
 }
 
 $(loadBookmarkVue);
-$(document).on("turblinks:load", loadBookmarkVue);
+$(document).on("turbolinks:load", loadBookmarkVue);

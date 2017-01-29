@@ -34,7 +34,9 @@ gem 'hamlit'
 gem 'bootstrap-sass'
 gem 'pry-rails'
 gem 'redcarpet'
+
 gem 'font-awesome-sass'
+
 group :development do
   gem 'better_errors'
   # gem 'quiet_assets'

@@ -1,21 +1,20 @@
 class CrawlController < ApplicationController
-
   def index
-    # binding.pry
     url = params[:url]
-    document = Nokogiri::HTML(HTTParty.get("http://#{url})"))
+    hostname = URI("http://#{url}").host
+
+    document = Nokogiri::HTML(HTTParty.get("http://#{url}"))
+
     title = document.css("title").first.text
     image = document.css("img").first.attr("src") rescue nil
-    para = document.css("p").first.text rescue nil
+    paragraph = document.css("p").first.text rescue nil
+
+    image.insert 0, "http://#{hostname}" unless image =~ /^http(s)?/
 
     render json: {
       title: title,
       image: image,
-      para: para
+      paragraph: paragraph
     }
   end
-
-
-
-
 end

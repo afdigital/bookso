@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :bookmarks
-
-  get "/:slug" => "visit#index", as: :visit # visit_path(:slug)
-  get "/crawl/:url" => "crawl#index", as: :crawl, constraints: { url: /.*/ }
+  
+  get "/:slug" => "visit#index", as: :visit
+  get "/crawl/:url" => "crawl#index", as: :crawl, constraints: { url: %r{.*} }
 
   root to: "bookmarks#index"
 end
